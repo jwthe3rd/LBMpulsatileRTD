@@ -1,0 +1,35 @@
+[MpiManager] Sucessfully initialized, numThreads=1
+[ThreadPool] Sucessfully initialized, numThreads=1
+[GPU_CUDA] The used MPI Library is not CUDA-aware. Multi-GPU execution will fail.
+[UnitConverter] ----------------- UnitConverter information -----------------
+[UnitConverter] -- Parameters:
+[UnitConverter] Resolution:                       N=              20
+[UnitConverter] Lattice velocity:                 latticeU=       0.0694205
+[UnitConverter] Lattice relaxation frequency:     omega=          1.96078
+[UnitConverter] Lattice relaxation time:          tau=            0.51
+[UnitConverter] Characteristical length(m):       charL=          0.001
+[UnitConverter] Characteristical speed(m/s):      charU=          1.14395
+[UnitConverter] Phys. kinematic viscosity(m^2/s): charNu=         2.74641e-06
+[UnitConverter] Phys. density(kg/m^d):            charRho=        1045
+[UnitConverter] Characteristical pressure(N/m^2): charPressure=   0
+[UnitConverter] Mach number:                      machNumber=     0.12024
+[UnitConverter] Reynolds number:                  reynoldsNumber= 416.524
+[UnitConverter] Knudsen number:                   knudsenNumber=  0.000288675
+[UnitConverter] 
+[UnitConverter] -- Conversion factors:
+[UnitConverter] Voxel length(m):                  physDeltaX=     5e-05
+[UnitConverter] Time step(s):                     physDeltaT=     3.03426e-06
+[UnitConverter] Velocity factor(m/s):             physVelocity=   16.4785
+[UnitConverter] Density factor(kg/m^3):           physDensity=    1045
+[UnitConverter] Mass factor(kg):                  physMass=       1.30625e-10
+[UnitConverter] Viscosity factor(m^2/s):          physViscosity=  0.000823924
+[UnitConverter] Force factor(N):                  physForce=      0.000709399
+[UnitConverter] Pressure factor(N/m^2):           physPressure=   283760
+[UnitConverter] -------------------------------------------------------------
+[STLreader] Voxelizing ...
+[STLmesh] nTriangles=39184; maxDist2=1.18621e-07
+[STLmesh] minPhysR(StlMesh)=(-0.0197039,0.00766897,-0.0275847); maxPhysR(StlMesh)=(0.00578333,0.0242104,0.00514848)
+[Octree] radius=0.0256; center=(-0.0069728,0.0159272,-0.0112306)
+[STLreader] voxelSize=5e-05; stlSize=0.001
+[STLreader] minPhysR(VoxelMesh)=(-0.0196979,0.00770221,-0.0275558); maxPhysR(VoxelMesh)=(0.00575218,0.0242023,0.00514436)
+[STLreader] Voxelizing ... OK
