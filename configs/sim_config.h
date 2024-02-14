@@ -35,7 +35,7 @@ const T smagCoeff = 0.1;
 
 
 // Sim Resolution Determination
-const int N = 20;
+const int N = 30;
 const T charMinL =0.001; // m
 const T deltaX = charMinL / N; // LU
 const T deltaT = (nuL * deltaX * deltaX) / nuP; // s
@@ -43,8 +43,8 @@ const T maxAllowableLatticeVel = 0.7;
 char stlFileName[] = "geo/p89.stl";
 
 // Sim Time Settings
-const T fluidMaxPhysT = T( 10 );     // max. fluid simulation time in s, SI unit
-const T particleMaxPhysT = T( 10 ); // max. particle simulation time in s, SI unit
+const T fluidMaxPhysT = T( 2 );     // max. fluid simulation time in s, SI unit
+const T particleMaxPhysT = T( 2 ); // max. particle simulation time in s, SI unit
 const T fluidPeriod = 0.3;
 
 // Average Velocity Determination
@@ -75,7 +75,7 @@ const T charLIn = 0.0002;
 Vector<T, 3> particleInjectionP(inletCenter[0]-(charLIn*inletNormal[0]), inletCenter[1]-(charLIn*inletNormal[1]), inletCenter[2]-(charLIn*inletNormal[2]));
 const T injectionRadius = 5.0; // LU away from the wall
 const T injectionLength = 0.5; // LU, length of the injection cylinder (must be cylinder because 3D, small to make it like a surface)
-const T injectionPeriod = 1.0;
+const T injectionPeriod = 1.1;
 
 //Set capture method:
 // materialCapture: based on material number

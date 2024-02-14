@@ -8,6 +8,7 @@ T getVelocityPulse(UnitConverter<T,DESCRIPTOR> const& converter,
 
     T t = (converter.getPhysTime(iT)*1.111-floor(converter.getPhysTime(iT)*1.111))/1.111;
 
+
     if (t <= 0.15)
     {
       vel_char =1.322515215*0.722378598771807*((0.349999999999992+9.39592352092547*t-191.515151515187*(pow(t,2))+871.933621933773*(pow(t,3))));
@@ -17,7 +18,7 @@ T getVelocityPulse(UnitConverter<T,DESCRIPTOR> const& converter,
       vel_char =1.322515215*0.722378598771807*((-8.87872100015116+158.853244453899*t-1009.813663592*(pow(t,2))+3083.59699791101*(pow(t,3))-4840.042878547*(pow(t,4))+3765.53701950272*(pow(t,5))-1142.95591854388*(pow(t,6))-8.95498219229757*(pow(t,7))));
     }
 
-    return 0.5*vel_char;
+    return 0.9; //0.5*vel_char;
 }
 
 void prepareGeometry(UnitConverter<T,DESCRIPTOR> const& converter,
@@ -135,12 +136,12 @@ void setBoundaryValues(SuperLattice<T,DESCRIPTOR>& sLattice,
     OstreamManager clout( std::cout,"setBoundaryValues" );
 
     // No of time steps for smooth start-up
-    const int iTmaxStart = converter.getLatticeTime( fluidMaxPhysT*0.2 );
+    const int iTmaxStart = converter.getLatticeTime( fluidMaxPhysT*0.5 );
     const int iTupdate = converter.getLatticeTime( 0.01 );
     const int iTperiod = converter.getLatticeTime(fluidPeriod);
     //Vector <T, 3> maxVelocity(T(), T(), T());
 
-    if ( iT%iTupdate==0) {
+    if ( iT%iTupdate==0 && iT<=iTmaxStart) {//if ( iT%iTupdate==0) {
         sLattice.setProcessingContext(ProcessingContext::Evaluation);
 
         // Smooth start curve, sinus
@@ -160,25 +161,30 @@ void setBoundaryValues(SuperLattice<T,DESCRIPTOR>& sLattice,
         // }
         // else if (javadInletVelocityBoundaryCondition)
         // {
-          Vector<T, 3> maxVelocity(converter.getLatticeVelocity(getVelocityPulse(converter, iT)), T(), T());
+         PolynomialStartScale<T, int> startScale( iTmaxStart, T(1));
+         int iTvec[1] = {iT};
+         T frac[1]={};
+         startScale(frac, iTvec);
+         Vector<T, 3> maxVelocity(2.*frac[0]*converter.getLatticeVelocity(getVelocityPulse(converter, iT)), T(), T());
+         
 
-          CirclePoiseuille3D<T> computedVelBC(superGeometry, 3, maxVelocity[0], T());
+         CirclePoiseuille3D<T> computedVelBC(superGeometry, 3, maxVelocity[0], T());
         //}
         // else
         // {
-        //   if (iT <= iTmaxStart)
-        //   {
-        //     PolynomialStartScale<T,int> startScale( iTmaxStart, T( 1 ) );
-        //   // Creates and sets the Poiseuille inflow profile using functors
-        //     int iTvec[1]= {iT};
-        //     T frac[1]= {};
-        //     startScale( frac,iTvec );
-        //     //std::vector<T> maxVelocity( 3,0 );
-        //     maxVelocity[0] = 2.*frac[0]*converter.getLatticeVelocity(avgVel);
+		// clout << "poopy" << std::endl;
+		// std::exit(0);
+    //         PolynomialStartScale<T,int> startScale( iTmaxStart, T( 1 ) );
+    //       // Creates and sets the Poiseuille inflow profile using functors
+    //         int iTvec[1]= {iT};
+    //         T frac[1]= {};
+    //         startScale( frac,iTvec );
+    //         std::vector<T> maxVelocity( 3,0 );
+    //         maxVelocity[0] = 2.*frac[0]*converter.getLatticeVelocity(getVelocityPulse(converter, iT));
 
-        //     T distance2Wall = converter.getConversionFactorLength()/2.;
-        //     CirclePoiseuille3D<T> computedVelBC( superGeometry, 3, maxVelocity[0], distance2Wall );
-        //   }
+    //         T distance2Wall = converter.getConversionFactorLength()/2.;
+    //         CirclePoiseuille3D<T> computedVelBC( superGeometry, 3, maxVelocity[0], distance2Wall );
+    //       }
         // }
 
         sLattice.defineU( superGeometry, 3, computedVelBC );

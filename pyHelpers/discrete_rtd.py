@@ -132,3 +132,13 @@ for i in range(num_pulses):
 axs[0].set(ylabel='E(t)')
 axs[1].set(ylabel='Velocity (m/s)')
 plt.savefig('vel_plot.png')
+
+
+plt.figure()
+
+plt.scatter(1, np.log10(244000), label="CPU on 4 CORES (244,000s)(<1 TFLOP)")
+plt.scatter(2, np.log10(24000), label="NVIDIA RTX 3060 Max-Q (24,000s) (13.07 TFLOPS)")
+plt.scatter(3, np.log10(10000), label="NVIDIA RTX 4080 (10,000s) (40.1 TFLOPS)")
+plt.ylabel("Log 10 Compute Time (s)")
+plt.legend()
+plt.savefig("compute.png")
