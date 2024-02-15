@@ -18,7 +18,7 @@ T getVelocityPulse(UnitConverter<T,DESCRIPTOR> const& converter,
       vel_char =1.322515215*0.722378598771807*((-8.87872100015116+158.853244453899*t-1009.813663592*(pow(t,2))+3083.59699791101*(pow(t,3))-4840.042878547*(pow(t,4))+3765.53701950272*(pow(t,5))-1142.95591854388*(pow(t,6))-8.95498219229757*(pow(t,7))));
     }
 
-    return 0.9; //0.5*vel_char;
+    return vel_char;
 }
 
 void prepareGeometry(UnitConverter<T,DESCRIPTOR> const& converter,
@@ -137,7 +137,7 @@ void setBoundaryValues(SuperLattice<T,DESCRIPTOR>& sLattice,
 
     // No of time steps for smooth start-up
     const int iTmaxStart = converter.getLatticeTime( fluidMaxPhysT*0.5 );
-    const int iTupdate = converter.getLatticeTime( 0.01 );
+    const int iTupdate = converter.getLatticeTime( 0.001 );
     const int iTperiod = converter.getLatticeTime(fluidPeriod);
     //Vector <T, 3> maxVelocity(T(), T(), T());
 
@@ -161,14 +161,14 @@ void setBoundaryValues(SuperLattice<T,DESCRIPTOR>& sLattice,
         // }
         // else if (javadInletVelocityBoundaryCondition)
         // {
-         PolynomialStartScale<T, int> startScale( iTmaxStart, T(1));
-         int iTvec[1] = {iT};
-         T frac[1]={};
-         startScale(frac, iTvec);
-         Vector<T, 3> maxVelocity(2.*frac[0]*converter.getLatticeVelocity(getVelocityPulse(converter, iT)), T(), T());
+        //  PolynomialStartScale<T, int> startScale( iTmaxStart, T(1));
+        //  int iTvec[1] = {iT};
+        //  T frac[1]={};
+        //  startScale(frac, iTvec);
+        Vector<T, 3> maxVelocity(2.*converter.getLatticeVelocity(getVelocityPulse(converter, iT)), T(), T());
          
 
-         CirclePoiseuille3D<T> computedVelBC(superGeometry, 3, maxVelocity[0], T());
+        CirclePoiseuille3D<T> computedVelBC(superGeometry, 3, maxVelocity[0], T());
         //}
         // else
         // {

@@ -103,6 +103,7 @@ int main( int argc, char* argv[] )
   clout << "starting simulation..." << std::endl;
   util::Timer<T> timer( converter.getLatticeTime( fluidMaxPhysT ), superGeometry.getStatistics().getNvoxel() );
   timer.start();
+  clout << converter.getLatticeTime(injectionPeriod) << std::endl;
 
   for ( std::size_t iT = 0; iT <= converter.getLatticeTime( fluidMaxPhysT ); iT++ ) {
 
